@@ -1381,9 +1381,6 @@ local function IRODSEX_fake_script() -- MainFrame.Autofarm handler
 			local OldHook, hookmetamethod, getnamecallmethod = nil, hookmetamethod, getnamecallmethod
 			OldHook = hookmetamethod(game, "__namecall", function(self, ...)
 				local Got  = getnamecallmethod():lower()
-				if self == event and Got:lower() == "fireserver" then
-					return
-				end
 				return OldHook(self, ...)
 			end)
 		end)

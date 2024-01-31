@@ -520,7 +520,7 @@ local function IRODSEX_fake_script() -- MainFrame.Autofarm handler
 			}, {
 				name = "SSJB4",
 				reqvalue = 50000001,
-				endrangevalue = 100000000000000000000000,
+				endrangevalue = 120000000,
 				alignment = "Neutral",
 				rebirthReq = 13,
 				formOwned = false,

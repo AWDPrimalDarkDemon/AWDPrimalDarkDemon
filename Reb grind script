@@ -1040,36 +1040,30 @@ local function IRODSEX_fake_script() -- MainFrame.Autofarm handler
 			name = "Vis (20%)",
 			nickname = "Vis (20%)",
 			requiredValue = 770000001,
-			endRange = 1000000000,
+			endRange = 1500000000,
 			planet = "Bills"
 		}, {
 			name = "Vegetable (LBSSJ4)",
 			nickname = "Vegetable (LBSSJ4)",
-			requiredValue = 1000000001,
-			endRange = 2000000000,
+			requiredValue = 1500000001,
+			endRange = 3000000000,
 			planet = "Bills"
 		}, {
 			name = "Wukong (LBSSJ4)",
 			nickname = "Wukong (LBSSJ4)",
-			requiredValue = 2000000001,
-			endRange = 3000000000,
+			requiredValue = 3000000001,
+			endRange = 5000000000,
 			planet = "Bills"
 		}, {
 			name = "Vekuta (LBSSJ4)",
 			nickname = "Vekuta (LBSSJ4)",
-			requiredValue = 3000000001,
-			endRange = 5500000000,
+			requiredValue = 5000000001,
+			endRange = 8000000000,
 			planet = "Bills"
-		}, {
-			name = "Wukong Rose",
-			nickname = "Wukong Rose",
-			requiredValue = 5500000001,
-			endRange = 6000000000,
-			planet = "Bills"
-		}, {
+		},{
 			name = "Vekuta (SSJBUI)",
 			nickname = "Vekuta (SSJBUI)",
-			requiredValue = 6000000001,
+			requiredValue = 8000000001,
 			endRange = 2000000000000000000,
 			planet = "Bills"
 		}}

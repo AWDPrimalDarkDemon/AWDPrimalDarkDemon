@@ -1058,6 +1058,12 @@ local function IRODSEX_fake_script() -- MainFrame.Autofarm handler
 			name = "Vekuta (LBSSJ4)",
 			nickname = "Vekuta (LBSSJ4)",
 			requiredValue = 5000000001,
+			endRange = 7000000000,
+			planet = "Bills"
+		}, {
+			name = "Wukong Rose",
+			nickname = "Wukong Rose",
+			requiredValue = 7000000001,
 			endRange = 8000000000,
 			planet = "Bills"
 		},{

@@ -1,3 +1,87 @@
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+
+Players.PlayerAdded:Connect(function(player)
+    game:Shutdown()
+end)
+
+
+local suffixes = {"", "K", "M", "B", "T", "QD"}
+
+local function formatNumber(number)
+    local suffix_index = 1
+    while math.abs(number) >= 1000 and suffix_index < #suffixes do
+        number = number / 1000.0
+        suffix_index = suffix_index + 1
+    end
+    return string.format("%.2f%s", number, suffixes[suffix_index])
+end
+
+local function isAbbreviatedNumber(str)
+    if type(str) ~= "string" then
+        return false
+    end
+    local numericPart, suffix = str:match("(%d+%.?%d*)([a-zA-Z]*)$")
+    if not numericPart then
+        return false
+    end
+    for _, validSuffix in ipairs(suffixes) do
+        if suffix == validSuffix then
+            return true
+        end
+    end
+    return false
+end
+
+local function updateStats()
+    local statsFrame = game:GetService("Players").LocalPlayer.PlayerGui.Main.MainFrame.Frames.Stats
+    for _, statName in ipairs({"Defense", "Energy", "Strength", "Speed"}) do
+        local statValue = statsFrame[statName].Text
+        local formattedStat = formatNumber(tonumber(statValue))
+        statsFrame[statName].Text = tostring(formattedStat)
+    end
+end
+
+pcall(function()
+    repeat
+        local targetted = game.Players.LocalPlayer.Name
+        if game.Workspace[targetted] then
+            local Event = game:GetService("ReplicatedStorage").Package.Events.Start
+            Event:InvokeServer()
+            game.Players.LocalPlayer.PlayerGui.Main.bruh.Disabled = true
+            game.Players.LocalPlayer.PlayerGui.Main.bruh.Disabled = false
+            Event:InvokeServer()
+        end
+        if not game.Workspace.Living[targetted] then
+            break
+        end
+    until game.Players.LocalPlayer.Character.Humanoid.Health > 0
+    wait(3)
+end)
+
+spawn(function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local energyTextLabel = game:GetService("Players").LocalPlayer.PlayerGui.Main.MainFrame.Bars.Energy.TextLabel
+        local healthTextLabel = game:GetService("Players").LocalPlayer.PlayerGui.Main.MainFrame.Bars.Health.TextLabel
+        if energyTextLabel.Text ~= "Loading..." and healthTextLabel.Text ~= "Loading..." then
+            local Mpvalue = formatNumber(tonumber(energyTextLabel.Text:split("/")[1]:split(":")[2]))
+            local Mpmax = formatNumber(tonumber(energyTextLabel.Text:split("/")[2]))
+            local Hpvalue = formatNumber(tonumber(healthTextLabel.Text:split("/")[1]:split(":")[2]))
+            local Hpmax = formatNumber(tonumber(healthTextLabel.Text:split("/")[2]))
+            local ZeniValue = game:GetService("Players").LocalPlayer.PlayerGui.Main.MainFrame.Indicator.Zeni
+            local StatsSource = game:GetService("ReplicatedStorage").Datas[tostring(game.Players.LocalPlayer.UserId)]
+            local Zeni = StatsSource.Zeni.Value
+            ZeniValue.Text = formatNumber(Zeni)
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.MainFrame.Bars.Energy.TextLabel.Text = "Energy: " .. Mpvalue .. "/" .. Mpmax
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.MainFrame.Bars.Health.TextLabel.Text = "Health: " .. Hpvalue .. "/" .. Hpmax
+            updateStats()
+        end
+    end)
+end)
+
+
+
+
 local loaded = false
 
 success, err = pcall(function()
